@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-gray-100;
+  scroll-behavior: smooth;
+}
+
+.container {
+  @apply max-w-4xl mx-auto;
+}
+
+section {
+  @apply opacity-0;
+}
+
+section[data-aos].aos-animate {
+  @apply opacity-100;
+}
+
+/* Aangepaste stijlen voor de carrouselnavigatie */
+.VueCarousel-navigation-button {
+  @apply text-blue-600 hover:text-blue-800;
+}
