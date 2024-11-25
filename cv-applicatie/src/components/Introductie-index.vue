@@ -3,65 +3,67 @@
     id="introductie"
     data-aos="fade-up"
     data-aos-duration="1000"
-    class="introductie flex flex-col items-center justify-center min-h-full py-8 px-4 md:px-8"
+    class="h-full w-full overflow-y-auto"
   >
-    <div class="w-full max-w-4xl mx-auto bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 relative">
-      <!-- Profile Section -->
-      <div class="relative w-32 h-32 mx-auto mb-8" data-aos="zoom-in" data-aos-delay="200">
-        <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-        <img
-          :src="foto"
-          alt="Profielfoto"
-          class="relative z-10 rounded-full w-full h-full object-cover shadow-lg border-4 border-white hover:border-blue-500 transition-all duration-300"
-        />
-      </div>
+    <div class="flex flex-col items-center py-8 px-4 md:px-8">
+      <div class="w-full max-w-4xl mx-auto bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 relative">
+        <!-- Profile Section -->
+        <div class="relative w-32 h-32 mx-auto mb-8" data-aos="zoom-in" data-aos-delay="200">
+          <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
+          <img
+            :src="foto"
+            alt="Profielfoto"
+            class="relative z-10 rounded-full w-full h-full object-cover shadow-lg border-4 border-white hover:border-blue-500 transition-all duration-300"
+          />
+        </div>
 
-      <!-- Name and Title -->
-      <div class="text-center space-y-4" data-aos="fade-up" data-aos-delay="400">
-        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-          {{ naam }}
-        </h1>
-        <h2 class="text-xl md:text-2xl text-gray-600">{{ titel }}</h2>
-      </div>
+        <!-- Name and Title -->
+        <div class="text-center space-y-4" data-aos="fade-up" data-aos-delay="400">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+            {{ naam }}
+          </h1>
+          <h2 class="text-lg sm:text-xl md:text-2xl text-gray-600">{{ titel }}</h2>
+        </div>
 
-      <!-- Description -->
-      <p class="text-lg text-gray-700 max-w-2xl mx-auto my-8 leading-relaxed" data-aos="fade-up" data-aos-delay="600">
-        {{ beschrijving }}
-      </p>
+        <!-- Description -->
+        <p class="text-base sm:text-lg text-gray-700 max-w-2xl mx-auto my-6 sm:my-8 leading-relaxed" data-aos="fade-up" data-aos-delay="600">
+          {{ beschrijving }}
+        </p>
 
-      <!-- Contact Information Grid -->
-      <div 
-        class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto my-8" 
-        data-aos="fade-up" 
-        data-aos-delay="800"
-      >
+        <!-- Contact Information Grid -->
         <div 
-          v-for="(info, index) in contactInfo" 
-          :key="index"
-          class="flex items-center space-x-4 p-4 rounded-lg bg-white/50 hover:bg-blue-50 transition-all duration-300 group"
+          class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto my-6 sm:my-8" 
+          data-aos="fade-up" 
+          data-aos-delay="800"
         >
-          <div class="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-400 group-hover:scale-110 transition-transform duration-300">
-            <i :class="info.icon" class="text-white text-xl"></i>
-          </div>
-          <div>
-            <h3 class="font-medium text-gray-900">{{ info.label }}</h3>
-            <p class="text-gray-600">{{ info.value }}</p>
+          <div 
+            v-for="(info, index) in contactInfo" 
+            :key="index"
+            class="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 rounded-lg bg-white/50 hover:bg-blue-50 transition-all duration-300 group"
+          >
+            <div class="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-purple-400 group-hover:scale-110 transition-transform duration-300">
+              <i :class="info.icon" class="text-white text-lg sm:text-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-sm sm:text-base font-medium text-gray-900">{{ info.label }}</h3>
+              <p class="text-xs sm:text-sm text-gray-600">{{ info.value }}</p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Social Links -->
-      <div class="flex justify-center space-x-6 mt-8" data-aos="fade-up" data-aos-delay="1000">
-        <a
-          v-for="social in socials"
-          :key="social.name"
-          :href="social.url"
-          class="social-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i :class="social.icon"></i>
-        </a>
+        <!-- Social Links -->
+        <div class="flex justify-center space-x-6 mt-8" data-aos="fade-up" data-aos-delay="1000">
+          <a
+            v-for="social in socials"
+            :key="social.name"
+            :href="social.url"
+            class="social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i :class="social.icon"></i>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -86,11 +88,6 @@ export default {
           icon: 'fas fa-phone',
           label: 'Telefoon',
           value: '+32 123 45 67 89'
-        },
-        {
-          icon: 'fas fa-map-marker-alt',
-          label: 'Locatie',
-          value: 'Hasselt, België'
         },
         {
           icon: 'fas fa-calendar',

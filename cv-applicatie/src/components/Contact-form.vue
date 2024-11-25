@@ -2,90 +2,161 @@
   <section 
     id="contact"
     data-aos="fade-up" 
-    class="contact bg-white shadow-xl rounded-lg p-8 transform hover:scale-105 transition-transform duration-300"
+    class="bg-white rounded-lg p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300"
   >
-    <h2 class="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-      Contact
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+      Contact & Netwerken
     </h2>
-    
-    <form @submit.prevent="handleSubmit" class="space-y-6 max-w-2xl mx-auto">
-      <!-- Naam -->
-      <div class="form-group">
-        <label for="naam" class="block text-sm font-medium text-gray-700 mb-1">Naam</label>
-        <input
-          type="text"
-          id="naam"
-          v-model="formData.naam"
-          :class="{'error': errors.naam}"
-          class="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          required
-        >
-        <span v-if="errors.naam" class="text-red-500 text-sm mt-1">{{ errors.naam }}</span>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
+      <!-- Contact Form -->
+      <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
+        <h3 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-gray-800">Neem Contact Op</h3>
+        <form @submit.prevent="handleSubmit" class="space-y-4 sm:space-y-6">
+          <!-- Name field with icon -->
+          <div class="relative">
+            <label class="block text-gray-700 mb-2">Naam</label>
+            <div class="relative">
+              <input 
+                v-model="formData.name"
+                type="text"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                required
+              >
+              <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>
+
+          <!-- Email field with icon -->
+          <div class="relative">
+            <label class="block text-gray-700 mb-2">Email</label>
+            <div class="relative">
+              <input 
+                v-model="formData.email"
+                type="email"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                required
+              >
+              <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>
+
+          <!-- Contact Reason -->
+          <div class="relative">
+            <label class="block text-gray-700 mb-2">Reden van Contact</label>
+            <div class="relative">
+              <select 
+                v-model="formData.reason"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                required
+              >
+                <option value="" disabled selected>Selecteer een reden</option>
+                <option value="job">Werkgelegenheid</option>
+                <option value="project">Project Samenwerking</option>
+                <option value="networking">Netwerken</option>
+                <option value="other">Anders</option>
+              </select>
+              <i class="fas fa-briefcase absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+          </div>
+
+          <!-- Message field with icon -->
+          <div class="relative">
+            <label class="block text-gray-700 mb-2">Bericht</label>
+            <div class="relative">
+              <textarea 
+                v-model="formData.message"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 min-h-[120px]"
+                required
+              ></textarea>
+              <i class="fas fa-comment absolute left-3 top-4 text-gray-400"></i>
+            </div>
+          </div>
+
+          <button 
+            type="submit"
+            class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-6 rounded-lg hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+            :disabled="isSubmitting"
+          >
+            <i class="fas fa-paper-plane mr-2"></i>
+            {{ isSubmitting ? 'Verzenden...' : 'Verstuur Bericht' }}
+          </button>
+        </form>
       </div>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-        <input
-          type="email"
-          id="email"
-          v-model="formData.email"
-          :class="{'error': errors.email}"
-          class="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          required
-        >
-        <span v-if="errors.email" class="text-red-500 text-sm mt-1">{{ errors.email }}</span>
-      </div>
+      <!-- Contact Info & Social Links -->
+      <div class="space-y-6">
+        <!-- Quick Contact -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Direct Contact</h3>
+          <div class="space-y-4">
+            <a href="mailto:your.email@example.com" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                <i class="fas fa-envelope text-white"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-800 font-medium">Email</p>
+                <p class="text-gray-600 text-sm">your.email@example.com</p>
+              </div>
+            </a>
+            <a href="tel:+1234567890" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                <i class="fas fa-phone text-white"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-800 font-medium">Telefoon</p>
+                <p class="text-gray-600 text-sm">+32 (0) 123 45 67 89</p>
+              </div>
+            </a>
+          </div>
+        </div>
 
-      <!-- Onderwerp -->
-      <div class="form-group">
-        <label for="onderwerp" class="block text-sm font-medium text-gray-700 mb-1">Onderwerp</label>
-        <input
-          type="text"
-          id="onderwerp"
-          v-model="formData.onderwerp"
-          :class="{'error': errors.onderwerp}"
-          class="form-input w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          required
-        >
-        <span v-if="errors.onderwerp" class="text-red-500 text-sm mt-1">{{ errors.onderwerp }}</span>
-      </div>
+        <!-- Social Links -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Sociale Media</h3>
+          <div class="space-y-4">
+            <a href="#" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-full bg-[#0077b5] flex items-center justify-center">
+                <i class="fab fa-linkedin-in text-white"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-800 font-medium">LinkedIn</p>
+                <p class="text-gray-600 text-sm">Bekijk mijn professionele profiel</p>
+              </div>
+            </a>
+            <a href="#" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+              <div class="w-10 h-10 rounded-full bg-[#333] flex items-center justify-center">
+                <i class="fab fa-github text-white"></i>
+              </div>
+              <div class="ml-4">
+                <p class="text-gray-800 font-medium">GitHub</p>
+                <p class="text-gray-600 text-sm">Bekijk mijn projecten</p>
+              </div>
+            </a>
+          </div>
+        </div>
 
-      <!-- Bericht -->
-      <div class="form-group">
-        <label for="bericht" class="block text-sm font-medium text-gray-700 mb-1">Bericht</label>
-        <textarea
-          id="bericht"
-          v-model="formData.bericht"
-          :class="{'error': errors.bericht}"
-          class="form-textarea w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-          rows="5"
-          required
-        ></textarea>
-        <span v-if="errors.bericht" class="text-red-500 text-sm mt-1">{{ errors.bericht }}</span>
+        <!-- Download CV -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+          <h3 class="text-xl font-semibold mb-4 text-gray-800">Download CV</h3>
+          <a 
+            href="/path-to-your-cv.pdf" 
+            download
+            class="flex items-center justify-center p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300"
+          >
+            <i class="fas fa-file-download mr-2"></i>
+            Download PDF Versie
+          </a>
+        </div>
       </div>
-
-      <!-- Submit Button -->
-      <div class="flex justify-end">
-        <button
-          type="submit"
-          :disabled="isSubmitting"
-          class="submit-button px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transform hover:scale-105 transition-all duration-300"
-        >
-          <span v-if="!isSubmitting">Verstuur</span>
-          <span v-else class="flex items-center">
-            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Versturen...
-          </span>
-        </button>
-      </div>
-    </form>
+    </div>
 
     <!-- Success Message -->
-    <div v-if="showSuccess" class="success-message fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform translate-y-0 opacity-100 transition-all duration-500">
+    <div 
+      v-if="showSuccess" 
+      class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500"
+      :class="{'translate-y-0 opacity-100': showSuccess, 'translate-y-10 opacity-0': !showSuccess}"
+    >
       Bericht succesvol verstuurd!
     </div>
   </section>
@@ -99,15 +170,14 @@ export default {
   data() {
     return {
       formData: {
-        naam: '',
+        name: '',
         email: '',
-        onderwerp: '',
-        bericht: ''
+        reason: '',
+        message: ''
       },
-      errors: {},
       isSubmitting: false,
       showSuccess: false
-    };
+    }
   },
   mounted() {
     this.$nextTick(() => {
@@ -118,8 +188,8 @@ export default {
     validateForm() {
       this.errors = {};
       
-      if (!this.formData.naam) {
-        this.errors.naam = 'Naam is verplicht';
+      if (!this.formData.name) {
+        this.errors.name = 'Naam is verplicht';
       }
       
       if (!this.formData.email) {
@@ -128,12 +198,12 @@ export default {
         this.errors.email = 'Ongeldig email adres';
       }
       
-      if (!this.formData.onderwerp) {
-        this.errors.onderwerp = 'Onderwerp is verplicht';
+      if (!this.formData.reason) {
+        this.errors.reason = 'Reden van contact is verplicht';
       }
       
-      if (!this.formData.bericht) {
-        this.errors.bericht = 'Bericht is verplicht';
+      if (!this.formData.message) {
+        this.errors.message = 'Bericht is verplicht';
       }
       
       return Object.keys(this.errors).length === 0;
@@ -148,111 +218,42 @@ export default {
       this.isSubmitting = true;
       
       try {
-        // Hier zou je normaal een API call maken om het formulier te versturen
-        await new Promise(resolve => setTimeout(resolve, 1500)); // Simuleer API call
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
         
         // Reset form
         this.formData = {
-          naam: '',
+          name: '',
           email: '',
-          onderwerp: '',
-          bericht: ''
+          reason: '',
+          message: ''
         };
         
-        // Toon success message
         this.showSuccess = true;
         setTimeout(() => {
           this.showSuccess = false;
         }, 3000);
-        
       } catch (error) {
         console.error('Error:', error);
-        // Hier zou je een error message kunnen tonen
       } finally {
         this.isSubmitting = false;
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>
-.contact {
-  background: linear-gradient(145deg, #ffffff, #f3f4f6);
-  border: 1px solid rgba(229, 231, 235, 0.5);
-  max-width: 800px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.contact::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-}
-
-.form-group {
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.form-group:focus-within {
-  transform: translateX(10px);
-}
-
-.form-input,
-.form-textarea {
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
 .form-input:focus,
 .form-textarea:focus {
+  outline: none;
   border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-}
-
-.error {
-  border-color: #ef4444 !important;
-}
-
-.submit-button {
-  position: relative;
-  overflow: hidden;
-}
-
-.submit-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transition: left 0.5s ease;
-}
-
-.submit-button:hover::before {
-  left: 100%;
-}
-
-.success-message {
-  animation: slideIn 0.5s ease forwards;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 @keyframes slideIn {
   from {
-    transform: translateY(-100%);
+    transform: translateY(20px);
     opacity: 0;
   }
   to {
@@ -261,18 +262,7 @@ export default {
   }
 }
 
-/* Responsive design */
-@media (max-width: 640px) {
-  .contact {
-    padding: 1.5rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  .submit-button {
-    width: 100%;
-  }
+.slide-in {
+  animation: slideIn 0.3s ease-out forwards;
 }
 </style>

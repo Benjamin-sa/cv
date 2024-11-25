@@ -179,81 +179,88 @@ export default {
 </script>
 
 <style>
-.app-wrapper {
-  position: relative;
-  width: 100%;
+#app {
   min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-container {
-  width: 100%;
-  height: 100vh;
-  position: relative;
+  flex: 1;
+  height: 100%;
 }
 
-/* Menu Styles */
-.menu-toggle {
-  transition: transform 0.2s ease;
-}
-
-/* Swiper styles */
-.swiper-container {
+.swiper {
+  position: absolute !important;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
 }
 
-.swiper-slide-content {
-  width: 100%;
-  height: 100vh;
+.swiper-wrapper {
+  height: 100% !important;
+}
+
+.swiper-slide {
+  height: 100% !important;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  background-color: white;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Navigation Buttons */
-:root {
-  --swiper-navigation-size: 24px;
-  --swiper-theme-color: #3B82F6;
+.swiper-slide > * {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  padding: 1rem;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  width: 40px !important;
-  height: 40px !important;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.swiper-button-next:hover,
-.swiper-button-prev:hover {
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-@media (max-width: 768px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-    display: none !important;
+@media (max-width: 640px) {
+  .swiper-slide > * {
+    padding: 0.5rem;
   }
 }
 
-/* Pagination */
+/* Navigation styles */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #3b82f6;
+  background: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 1.2rem;
+}
+
+@media (max-width: 640px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
+}
+
+/* Pagination styles */
 .swiper-pagination {
-  position: fixed;
-  bottom: 20px;
+  position: fixed !important;
+  bottom: 20px !important;
+  z-index: 20;
 }
 
 .swiper-pagination-bullet {
-  width: 8px;
-  height: 8px;
-  background: rgba(59, 130, 246, 0.5);
-  opacity: 1;
+  background: #3b82f6;
+  opacity: 0.5;
 }
 
 .swiper-pagination-bullet-active {
-  background: #3B82F6;
-  transform: scale(1.2);
+  opacity: 1;
 }
 </style>
