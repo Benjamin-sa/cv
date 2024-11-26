@@ -71,6 +71,7 @@
 
 <script>
 import { ref } from 'vue';
+import profielfoto from '@/assets/profielfoto.jpeg';
 
 export default {
   name: 'IntroductieIndex',
@@ -79,7 +80,7 @@ export default {
       naam: 'Benjamin Sauter',
       titel: 'Student Industrieel Ingenieur',
       beschrijving: 'Student industrieel ingenieur met een passie voor softwareontwikkeling en elektronica. Op zoek naar uitdagende projecten om mijn technische vaardigheden verder te ontwikkelen.',
-      foto: require('@/assets/profielfoto.jpeg'),
+      foto: profielfoto,
       contactInfo: [
         {
           icon: 'fas fa-envelope',

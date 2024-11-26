@@ -2,20 +2,32 @@
   "name": "cv-applicatie",
   "version": "1.0.0",
   "description": "CV Applicatie",
-  "main": "src/server.js",
-  "scripts": {  
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "heroku-postbuild": "npm run build"
   },
   "engines": {
     "node": "18.x"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.1",
     "@sendgrid/mail": "^8.1.4",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "aos": "^2.3.4",
+    "autoprefixer": "^10.4.20",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
-    "nodemailer": "^6.9.16"
+    "nodemailer": "^6.9.16",
+    "postcss": "^8.4.49",
+    "swiper": "^11.1.15",
+    "tailwindcss": "^3.4.15",
+    "vite": "^4.4.5",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"
