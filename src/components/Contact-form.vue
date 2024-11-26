@@ -15,12 +15,13 @@
         <form @submit.prevent="handleSubmit" class="space-y-4 sm:space-y-6">
           <!-- Name field with icon -->
           <div class="relative">
-            <label class="block text-gray-700 mb-2">Naam</label>
+            <label class="block text-gray-700 text-sm sm:text-base mb-2">Naam</label>
             <div class="relative">
               <input 
                 v-model="formData.name"
                 type="text"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                inputmode="text"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-base sm:text-lg"
                 required
               >
               <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
@@ -29,12 +30,13 @@
 
           <!-- Email field with icon -->
           <div class="relative">
-            <label class="block text-gray-700 mb-2">Email</label>
+            <label class="block text-gray-700 text-sm sm:text-base mb-2">Email</label>
             <div class="relative">
               <input 
                 v-model="formData.email"
                 type="email"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
+                inputmode="email"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-base sm:text-lg"
                 required
               >
               <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
@@ -43,11 +45,11 @@
 
           <!-- Message field with icon -->
           <div class="relative">
-            <label class="block text-gray-700 mb-2">Bericht</label>
+            <label class="block text-gray-700 text-sm sm:text-base mb-2">Bericht</label>
             <div class="relative">
               <textarea 
                 v-model="formData.message"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 min-h-[120px]"
+                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 min-h-[120px] text-base sm:text-lg"
                 required
               ></textarea>
               <i class="fas fa-comment absolute left-3 top-4 text-gray-400"></i>
@@ -96,7 +98,7 @@
         <div class="bg-white rounded-lg shadow-lg p-6">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Sociale Media</h3>
           <div class="space-y-4">
-            <a href="https://github.com/Benjamin-sa" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="https://www.linkedin.com/in/benjamin-sauter-14222b2b0" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-[#0077b5] flex items-center justify-center">
                 <i class="fab fa-linkedin-in text-white"></i>
               </div>
@@ -105,7 +107,7 @@
                 <p class="text-gray-600 text-sm">Bekijk mijn professionele profiel</p>
               </div>
             </a>
-            <a href="https://www.linkedin.com/in/benjamin-sauter-14222b2b0" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="https://github.com/Benjamin-sa" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-[#333] flex items-center justify-center">
                 <i class="fab fa-github text-white"></i>
               </div>

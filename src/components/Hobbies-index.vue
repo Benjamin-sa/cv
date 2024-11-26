@@ -14,17 +14,18 @@
         :key="index"
         class="hobby-card w-full bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
         :data-aos="getAosAnimation(index)"
-        :data-aos-delay="index * 100"
+        :data-aos-delay="index * 10"
       >
-        <div class="relative h-64 overflow-hidden rounded-t-lg">
+        <div class="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
           <img 
             :src="hobby.image" 
             :alt="hobby.naam"
+            loading="lazy"
             class="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
           />
           <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-          <div class="absolute bottom-0 left-0 right-0 p-6">
-            <h3 class="text-2xl font-bold text-white mb-2">{{ hobby.naam }}</h3>
+          <div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
+            <h3 class="text-xl sm:text-2xl font-bold text-white mb-2">{{ hobby.naam }}</h3>
             <div class="flex items-center text-white/90">
               <i :class="hobby.icon + ' mr-2'"></i>
               <span class="text-sm">{{ hobby.periode }}</span>
