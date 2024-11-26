@@ -41,25 +41,6 @@
             </div>
           </div>
 
-          <!-- Contact Reason -->
-          <div class="relative">
-            <label class="block text-gray-700 mb-2">Reden van Contact</label>
-            <div class="relative">
-              <select 
-                v-model="formData.reason"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300"
-                required
-              >
-                <option value="" disabled selected>Selecteer een reden</option>
-                <option value="job">Werkgelegenheid</option>
-                <option value="project">Project Samenwerking</option>
-                <option value="networking">Netwerken</option>
-                <option value="other">Anders</option>
-              </select>
-              <i class="fas fa-briefcase absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-            </div>
-          </div>
-
           <!-- Message field with icon -->
           <div class="relative">
             <label class="block text-gray-700 mb-2">Bericht</label>
@@ -90,22 +71,22 @@
         <div class="bg-white rounded-lg shadow-lg p-6">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Direct Contact</h3>
           <div class="space-y-4">
-            <a href="mailto:your.email@example.com" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="mailto:benjamin.sautersb@gmail.com" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
                 <i class="fas fa-envelope text-white"></i>
               </div>
               <div class="ml-4">
                 <p class="text-gray-800 font-medium">Email</p>
-                <p class="text-gray-600 text-sm">your.email@example.com</p>
+                <p class="text-gray-600 text-sm">benjamin.sautersb@gmail.com</p>
               </div>
             </a>
-            <a href="tel:+1234567890" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="tel:+32493789131" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
                 <i class="fas fa-phone text-white"></i>
               </div>
               <div class="ml-4">
                 <p class="text-gray-800 font-medium">Telefoon</p>
-                <p class="text-gray-600 text-sm">+32 (0) 123 45 67 89</p>
+                <p class="text-gray-600 text-sm">+32 493 78 91 31</p>
               </div>
             </a>
           </div>
@@ -115,7 +96,7 @@
         <div class="bg-white rounded-lg shadow-lg p-6">
           <h3 class="text-xl font-semibold mb-4 text-gray-800">Sociale Media</h3>
           <div class="space-y-4">
-            <a href="#" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="https://github.com/Benjamin-sa" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-[#0077b5] flex items-center justify-center">
                 <i class="fab fa-linkedin-in text-white"></i>
               </div>
@@ -124,7 +105,7 @@
                 <p class="text-gray-600 text-sm">Bekijk mijn professionele profiel</p>
               </div>
             </a>
-            <a href="#" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="https://www.linkedin.com/in/benjamin-sauter-14222b2b0" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-[#333] flex items-center justify-center">
                 <i class="fab fa-github text-white"></i>
               </div>
@@ -172,11 +153,11 @@ export default {
       formData: {
         name: '',
         email: '',
-        reason: '',
         message: ''
       },
       isSubmitting: false,
-      showSuccess: false
+      showSuccess: false,
+      error: ''
     }
   },
   mounted() {
@@ -186,57 +167,54 @@ export default {
   },
   methods: {
     validateForm() {
-      this.errors = {};
-      
-      if (!this.formData.name) {
-        this.errors.name = 'Naam is verplicht';
+      if (!this.formData.name || !this.formData.email || !this.formData.message) {
+        this.error = 'Alle velden zijn verplicht.';
+        return false;
       }
-      
-      if (!this.formData.email) {
-        this.errors.email = 'Email is verplicht';
-      } else if (!this.validateEmail(this.formData.email)) {
-        this.errors.email = 'Ongeldig email adres';
+      if (!this.validateEmail(this.formData.email)) {
+        this.error = 'Voer een geldig emailadres in.';
+        return false;
       }
-      
-      if (!this.formData.reason) {
-        this.errors.reason = 'Reden van contact is verplicht';
-      }
-      
-      if (!this.formData.message) {
-        this.errors.message = 'Bericht is verplicht';
-      }
-      
-      return Object.keys(this.errors).length === 0;
+      this.error = '';
+      return true;
     },
+    
     validateEmail(email) {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email);
     },
+    
     async handleSubmit() {
-      if (!this.validateForm()) return;
-      
-      this.isSubmitting = true;
+      if (!this.validateForm()) {
+        return;
+      }
       
       try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.formData)
+        });
         
-        // Reset form
-        this.formData = {
-          name: '',
-          email: '',
-          reason: '',
-          message: ''
-        };
+        const data = await response.json();
         
-        this.showSuccess = true;
-        setTimeout(() => {
-          this.showSuccess = false;
-        }, 3000);
+        if (response.ok) {
+          this.showSuccess = true;
+          this.formData = {
+            name: '',
+            email: '',
+            message: ''
+          };
+          setTimeout(() => {
+            this.showSuccess = false;
+          }, 5000);
+        } else {
+          throw new Error(data.error || 'Er is iets misgegaan');
+        }
       } catch (error) {
-        console.error('Error:', error);
-      } finally {
-        this.isSubmitting = false;
+        this.error = error.message;
       }
     }
   }

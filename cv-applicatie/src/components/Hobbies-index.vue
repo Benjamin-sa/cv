@@ -79,7 +79,7 @@ export default {
         {
           naam: 'Scouts Hoofdleider',
           icon: 'fas fa-campground',
-          periode: '2019 - heden',
+          periode: '2024 - heden',
           beschrijving: 'Als hoofdleider van de scoutsgroep ben ik verantwoordelijk voor de coördinatie van activiteiten, het begeleiden van het leidingsteam en het waarborgen van een veilige en leerzame omgeving voor alle leden.',
           image: '/images/scouts.jpg',
           details: [
@@ -99,10 +99,10 @@ export default {
           naam: 'Boksen',
           icon: 'fas fa-fist-raised',
           periode: '2020 - heden',
-          beschrijving: 'Boksen is voor mij meer dan alleen een sport - het is een manier om fysiek en mentaal sterker te worden. Door regelmatige training ontwikkel ik niet alleen technische vaardigheden, maar ook discipline en doorzettingsvermogen.',
-          image: '/images/boxing.jpg',
+          beschrijving: 'Boksen is een manier om fysiek en mentaal sterker te worden. Door regelmatige training ontwikkel ik mijn discipline en doorzettingsvermogen.',
+          image: '/images/boksen.webp',
           details: [
-            'Intensieve technische training 3x per week',
+            'Intensieve technische training 4x per week',
             'Focus op conditie en uithoudingsvermogen',
             'Ontwikkeling van mentale weerbaarheid',
             'Combinatie van kracht- en cardiotraining'

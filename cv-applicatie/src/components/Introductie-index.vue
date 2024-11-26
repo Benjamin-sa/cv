@@ -76,7 +76,7 @@ export default {
     return {
       naam: 'Benjamin Sauter',
       titel: 'Student Industrieel Ingenieur',
-      beschrijving: 'Student industrieel ingenieur met een passie voor softwareontwikkeling en innovatie. Op zoek naar uitdagende projecten om mijn technische vaardigheden verder te ontwikkelen.',
+      beschrijving: 'Student industrieel ingenieur met een passie voor softwareontwikkeling en elektronica. Op zoek naar uitdagende projecten om mijn technische vaardigheden verder te ontwikkelen.',
       foto: require('@/assets/profielfoto.jpeg'),
       contactInfo: [
         {
@@ -87,23 +87,23 @@ export default {
         {
           icon: 'fas fa-phone',
           label: 'Telefoon',
-          value: '+32 123 45 67 89'
+          value: '+32 493 78 91 31'
         },
         {
           icon: 'fas fa-calendar',
           label: 'Geboortedatum',
-          value: '01 januari 2000'
+          value: '05 oktober 200'
         }
       ],
       socials: [
         {
           name: 'LinkedIn',
-          url: 'https://linkedin.com/in/benjamin-sauter',
+          url: 'https://www.linkedin.com/in/benjamin-sauter-14222b2b0',
           icon: 'fab fa-linkedin'
         },
         {
           name: 'GitHub',
-          url: 'https://github.com/benjamin-sauter',
+          url: 'https://github.com/benjamin-sa',
           icon: 'fab fa-github'
         }
       ]

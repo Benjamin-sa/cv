@@ -55,15 +55,15 @@ export default {
           titel: 'Bachelor in Industriële Ingenieurswetenschappen',
           instelling: 'Universiteit Hasselt',
           jaar: '2023 - heden',
-          beschrijving: 'Specialisatie in elektronica en ICT met focus op moderne technologieën en innovatieve oplossingen.',
-          vakken: ['Programmeren', 'Elektronica', 'Wiskunde', 'Fysica', 'Netwerken'],
+          beschrijving: 'Specialisatie in elektronica en ICT.',
+          vakken: ['Programmeren', 'Elektronica', 'Wiskunde', 'Netwerken'],
           animationDelay: 0
         },
         {
-          titel: 'Secundair Onderwijs',
-          instelling: 'Technisch Instituut',
+          titel: 'Secundair Onderwijs Techniek wetenschappen',
+          instelling: 'Instituut Mariaburcht',
           jaar: '2017 - 2023',
-          beschrijving: 'Afstudeerrichting Industriële Wetenschappen met sterke basis in wiskunde en wetenschappen.',
+          beschrijving: 'studierichting met sterke basis in wiskunde en wetenschappen.',
           vakken: ['Wiskunde', 'Fysica', 'Chemie', 'Technologie'],
           animationDelay: 200
         }
