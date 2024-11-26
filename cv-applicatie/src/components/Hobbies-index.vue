@@ -68,66 +68,69 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 export default {
-  data() {
-    return {
-      hobbies: [
-        {
-          naam: 'Scouts Hoofdleider',
-          icon: 'fas fa-campground',
-          periode: '2024 - heden',
-          beschrijving: 'Als hoofdleider van de scoutsgroep ben ik verantwoordelijk voor de coördinatie van activiteiten, het begeleiden van het leidingsteam en het waarborgen van een veilige en leerzame omgeving voor alle leden.',
-          image: '/images/scouts.jpg',
-          details: [
-            'Leiding geven aan een team van 20+ begeleiders',
-            'Organisatie van evenementen en jaarlijkse kampen',
+  name: 'HobbiesIndex',
+
+  setup() {
+    const hobbies = ref([
+      {
+        naam: 'Scouts Hoofdleider',
+        icon: 'fas fa-campground',
+        periode: '2024 - heden',
+        beschrijving: 'Als hoofdleider van de scoutsgroep ben ik verantwoordelijk voor de coördinatie van activiteiten, het begeleiden van het leidingsteam en het waarborgen van een veilige en leerzame omgeving voor alle leden.',
+        image: '/images/scouts.jpg',
+        details: [
+          'Leiding geven aan een team van 20+ begeleiders',
+          'Organisatie van evenementen en jaarlijkse kampen',
             'Verantwoordelijk voor veiligheid en welzijn van 100+ leden',
             'Communicatie met ouders en externe partners'
-          ],
-          vaardigheden: [
-            'Leiderschap',
+        ],
+        vaardigheden: [
+          'Leiderschap',
             'Verantwoordelijkheid',
             'Event management',
             'Crisismanagement'
-          ]
-        },
-        {
-          naam: 'Boksen',
-          icon: 'fas fa-fist-raised',
-          periode: '2020 - heden',
-          beschrijving: 'Boksen is een manier om fysiek en mentaal sterker te worden. Door regelmatige training ontwikkel ik mijn discipline en doorzettingsvermogen.',
-          image: '/images/boksen.webp',
-          details: [
-            'Intensieve technische training 4x per week',
-            'Focus op conditie en uithoudingsvermogen',
-            'Ontwikkeling van mentale weerbaarheid',
-            'Combinatie van kracht- en cardiotraining'
-          ],
-          vaardigheden: [
-            'Discipline',
-            'Doorzettingsvermogen',
-            'Techniek',
+        ]
+      },
+      {
+        naam: 'Boksen',
+        icon: 'fas fa-fist-raised',
+        periode: '2020 - heden',
+        beschrijving: 'Boksen is een manier om fysiek en mentaal sterker te worden. Door regelmatige training ontwikkel ik mijn discipline en doorzettingsvermogen.',
+        image: '/images/boksen.webp',
+        details: [
+          'Intensieve technische training 4x per week',
+          'Focus op conditie en uithoudingsvermogen',
+          'Ontwikkeling van mentale weerbaarheid',
+          'Combinatie van kracht- en cardiotraining'
+        ],
+        vaardigheden: [
+          'Discipline',
+          'Doorzettingsvermogen',
+          'Techniek',
             'Fysieke Conditie',
             'Mentale Focus'
-          ]
-        }
-      ]
+        ]
+      }
+    ]);
+
+    const getAosAnimation = (index) => {
+      return index % 2 === 0 ? 'fade-right' : 'fade-left';
     };
-  },
-  mounted() {
-    this.$nextTick(() => {
-      AOS.refresh();
+
+    onMounted(() => {
+      AOS.init();
     });
-  },
-  methods: {
-    getAosAnimation(index) {
-      const animations = ['fade-right', 'fade-left'];
-      return animations[index % animations.length];
-    }
+
+    return {
+      hobbies,
+      getAosAnimation
+    };
   }
 };
 </script>

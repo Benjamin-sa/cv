@@ -22,7 +22,7 @@
         >
           <h3 class="text-xl font-semibold text-blue-600 mb-3">{{ opl.titel }}</h3>
           <div class="flex items-center text-gray-600 mb-3">
-            <span class="font-medium company-badge">{{ opl.instelling }}</span>
+            <span class="font-medium company-badge">{{ opl.school }}</span>
             <span class="mx-3">•</span>
             <span class="text-gray-500 year-badge">{{ opl.jaar }}</span>
           </div>
@@ -43,42 +43,44 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 export default {
   name: 'OpleidingIndex',
-  data() {
-    return {
-      opleidingen: [
-        {
+  setup() {
+    const opleidingen = ref([
+      {
           titel: 'Bachelor in Industriële Ingenieurswetenschappen',
-          instelling: 'Universiteit Hasselt',
+          school: 'Universiteit Hasselt',
           jaar: '2023 - heden',
           beschrijving: 'Specialisatie in elektronica en ICT.',
           vakken: ['Programmeren', 'Elektronica', 'Wiskunde', 'Netwerken'],
           animationDelay: 0
-        },
-        {
+      },
+      {
           titel: 'Secundair Onderwijs Techniek wetenschappen',
-          instelling: 'Instituut Mariaburcht',
+          school: 'Instituut Mariaburcht',
           jaar: '2017 - 2023',
           beschrijving: 'studierichting met sterke basis in wiskunde en wetenschappen.',
           vakken: ['Wiskunde', 'Fysica', 'Chemie', 'Technologie'],
           animationDelay: 200
-        }
-      ]
-    };
-  },
-  methods: {
-    getAosAnimation(index) {
+      }
+    ]);
+
+    const getAosAnimation = (index) => {
       return index % 2 === 0 ? 'fade-right' : 'fade-left';
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      AOS.refresh();
+    };
+
+    onMounted(() => {
+      AOS.init();
     });
+
+    return {
+      opleidingen,
+      getAosAnimation
+    };
   }
 };
 </script>

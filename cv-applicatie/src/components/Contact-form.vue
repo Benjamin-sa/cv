@@ -144,81 +144,96 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 export default {
-  data() {
-    return {
-      formData: {
-        name: '',
-        email: '',
-        message: ''
-      },
-      isSubmitting: false,
-      showSuccess: false,
-      error: ''
-    }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      AOS.refresh();
+  name: 'ContactForm',
+  setup() {
+    const formData = ref({
+      name: '',
+      email: '',
+      message: ''
     });
-  },
-  methods: {
-    validateForm() {
-      if (!this.formData.name || !this.formData.email || !this.formData.message) {
-        this.error = 'Alle velden zijn verplicht.';
-        return false;
-      }
-      if (!this.validateEmail(this.formData.email)) {
-        this.error = 'Voer een geldig emailadres in.';
-        return false;
-      }
-      this.error = '';
-      return true;
-    },
     
-    validateEmail(email) {
+    const showSuccess = ref(false);
+    const showError = ref(false);
+    const errorMessage = ref('');
+    const isSubmitting = ref(false);
+
+    const validateEmail = (email) => {
       const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return re.test(email);
-    },
-    
-    async handleSubmit() {
-      if (!this.validateForm()) {
-        return;
+    };
+
+    const validateForm = () => {
+      if (!formData.value.name || !formData.value.email || !formData.value.message) {
+        errorMessage.value = 'Alle velden zijn verplicht.';
+        showError.value = true;
+        return false;
       }
-      
+
+      if (!validateEmail(formData.value.email)) {
+        errorMessage.value = 'Voer een geldig e-mailadres in.';
+        showError.value = true;
+        return false;
+      }
+
+      showError.value = false;
+      return true;
+    };
+
+    const handleSubmit = async () => {
+      if (!validateForm()) return;
+
+      isSubmitting.value = true;
+      showError.value = false;
+      showSuccess.value = false;
+
       try {
         const response = await fetch('/api/contact', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(this.formData)
+          body: JSON.stringify(formData.value),
         });
-        
+
         const data = await response.json();
-        
+
         if (response.ok) {
-          this.showSuccess = true;
-          this.formData = {
+          showSuccess.value = true;
+          formData.value = {
             name: '',
             email: '',
             message: ''
           };
-          setTimeout(() => {
-            this.showSuccess = false;
-          }, 5000);
         } else {
-          throw new Error(data.error || 'Er is iets misgegaan');
+          throw new Error(data.error || 'Er is iets misgegaan.');
         }
       } catch (error) {
-        this.error = error.message;
+        showError.value = true;
+        errorMessage.value = error.message || 'Er is iets misgegaan bij het verzenden.';
+      } finally {
+        isSubmitting.value = false;
       }
-    }
+    };
+
+    onMounted(() => {
+      AOS.init();
+    });
+
+    return {
+      formData,
+      showSuccess,
+      showError,
+      errorMessage,
+      isSubmitting,
+      handleSubmit
+    };
   }
-}
+};
 </script>
 
 <style scoped>

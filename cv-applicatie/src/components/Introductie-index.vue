@@ -70,10 +70,12 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+
 export default {
   name: 'IntroductieIndex',
-  data() {
-    return {
+  setup() {
+    const introductie = ref({
       naam: 'Benjamin Sauter',
       titel: 'Student Industrieel Ingenieur',
       beschrijving: 'Student industrieel ingenieur met een passie voor softwareontwikkeling en elektronica. Op zoek naar uitdagende projecten om mijn technische vaardigheden verder te ontwikkelen.',
@@ -107,6 +109,10 @@ export default {
           icon: 'fab fa-github'
         }
       ]
+    });
+
+    return {
+      ...introductie.value
     };
   }
 };
