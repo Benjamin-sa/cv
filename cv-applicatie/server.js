@@ -5,6 +5,7 @@ const sgMail = require('@sendgrid/mail');
 const bodyParser = require('body-parser');
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.static(path.join(__dirname, 'dist')));
@@ -22,10 +23,19 @@ if (!SENDGRID_API_KEY || !TO_EMAIL) {
 
 sgMail.setApiKey(SENDGRID_API_KEY);
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' });
+});
+
 // Contact form endpoint
 app.post('/api/contact', async (req, res) => {
   try {
     const { name, email, message } = req.body;
+
+    if (!name || !email || !message) {
+      return res.status(400).json({ error: 'Alle velden zijn verplicht.' });
+    }
 
     if (!TO_EMAIL) {
       throw new Error('TO_EMAIL environment variable is not set');
@@ -56,13 +66,18 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-// Always return the main index.html for other routes
+// Serve static files
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: 'Er is een fout opgetreden op de server.' });
+});
+
 // Start server
-const port = process.env.PORT || 3000;
 app.listen(port, '0.0.0.0', () => {
-  console.log('Server running on port:', port);
+  console.log(`Server draait op poort ${port}`);
 });
