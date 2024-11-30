@@ -95,7 +95,7 @@ export default {
         {
           icon: 'fas fa-calendar',
           label: 'Geboortedatum',
-          value: '05 oktober 200'
+          value: '05 oktober 2003'
         }
       ],
       socials: [

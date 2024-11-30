@@ -5,7 +5,7 @@
     class="bg-white rounded-lg p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300"
   >
     <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
-      Hobby's & Interesses
+      Hobbies
     </h2>
     
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 place-items-center max-w-7xl mx-auto">
@@ -125,7 +125,19 @@ export default {
     };
 
     onMounted(() => {
-      AOS.init();
+      // Initialize AOS with specific settings
+      AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: true,
+        offset: 50,
+        delay: 100
+      });
+      
+      // Force AOS refresh after a short delay to ensure proper initialization
+      setTimeout(() => {
+        AOS.refresh();
+      }, 100);
     });
 
     return {
