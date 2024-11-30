@@ -113,7 +113,6 @@ export default {
         vaardigheden: [
           'Discipline',
           'Doorzettingsvermogen',
-          'Techniek',
             'Fysieke Conditie',
             'Mentale Focus'
         ]

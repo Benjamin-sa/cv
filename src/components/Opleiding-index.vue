@@ -62,9 +62,9 @@ export default {
       {
           titel: 'Secundair Onderwijs Techniek wetenschappen',
           school: 'Instituut Mariaburcht',
-          jaar: '2017 - 2023',
+          jaar: '2015 - 2022',
           beschrijving: 'studierichting met sterke basis in wiskunde en wetenschappen.',
-          vakken: ['Wiskunde', 'Fysica', 'Chemie', 'Technologie'],
+          vakken: ['Wiskunde', 'Fysica', 'Chemie', 'Biologie'],
           animationDelay: 200
       }
     ]);
