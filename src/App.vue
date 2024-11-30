@@ -42,29 +42,49 @@
           :pagination="{ 
             enabled: true,
             clickable: true,
-            dynamicBullets: true
+            dynamicBullets: true,
+            dynamicMainBullets: 3
           }"
           :direction="'horizontal'"
           :effect="'creative'"
           :creativeEffect="{
             prev: {
-              translate: [0, 0, -400],
+              translate: ['-100%', 0, -400],
+              opacity: 0
             },
             next: {
               translate: ['100%', 0, 0],
+              opacity: 0
             },
           }"
-          :speed="800"
+          :speed="600"
           :allowTouchMove="true"
-          :touchRatio="1"
-          :threshold="20"
+          :touchRatio="2"
+          :threshold="10"
           :resistance="true"
-          :resistanceRatio="0.85"
+          :resistanceRatio="0.65"
           :autoHeight="true"
           :watchSlidesProgress="true"
-          :observer="true"
-          :observeParents="true"
-          :observeSlideChildren="true"
+          :touchStartPreventDefault="false"
+          :touchMoveStopPropagation="true"
+          :breakpoints="{
+            320: {
+              touchRatio: 1.5,
+              resistanceRatio: 0.85,
+              speed: 400,
+              navigation: {
+                enabled: false
+              }
+            },
+            768: {
+              touchRatio: 1,
+              resistanceRatio: 0.65,
+              speed: 600,
+              navigation: {
+                enabled: true
+              }
+            }
+          }"
           class="swiper-container"
           @swiper="onSwiper"
           @slideChange="onSlideChange"
@@ -260,8 +280,20 @@ export default {
 /* Pagination styles */
 .swiper-pagination {
   position: fixed !important;
-  bottom: 20px !important;
+  bottom: 10px !important;
   z-index: 20;
+}
+
+@media (max-width: 640px) {
+  .swiper-pagination {
+    bottom: 5px !important;
+  }
+  
+  .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    margin: 0 4px !important;
+  }
 }
 
 .swiper-pagination-bullet {
