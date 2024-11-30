@@ -93,6 +93,7 @@
             </a>
           </div>
         </div>
+        
 
         <!-- Social Links -->
         <div class="bg-white rounded-lg shadow-lg p-6">
@@ -118,29 +119,27 @@
             </a>
           </div>
         </div>
-
-        <!-- Download CV -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-          <h3 class="text-xl font-semibold mb-4 text-gray-800">Download CV</h3>
-          <a 
-            href="/path-to-your-cv.pdf" 
-            download
-            class="flex items-center justify-center p-3 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300"
-          >
-            <i class="fas fa-file-download mr-2"></i>
-            Download PDF Versie
-          </a>
-        </div>
       </div>
     </div>
+
+        
 
     <!-- Success Message -->
     <div 
       v-if="showSuccess" 
-      class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-500"
+      class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-4"
       :class="{'translate-y-0 opacity-100': showSuccess, 'translate-y-10 opacity-0': !showSuccess}"
     >
-      Bericht succesvol verstuurd!
+      <div class="flex items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span>Bericht succesvol verstuurd!</span>
+      </div>
+      <button 
+        @click="dismissNotification" 
+        class="text-white hover:text-green-200 transition-colors"
+      >
+        <i class="fas fa-times"></i>
+      </button>
     </div>
   </section>
 </template>
@@ -186,6 +185,10 @@ export default {
       return true;
     };
 
+    const dismissNotification = () => {
+      showSuccess.value = false;
+    };
+
     const handleSubmit = async () => {
       if (!validateForm()) return;
 
@@ -206,6 +209,11 @@ export default {
 
         if (response.ok) {
           showSuccess.value = true;
+          // Auto-dismiss after 5 seconds
+          setTimeout(() => {
+            showSuccess.value = false;
+          }, 5000);
+          
           formData.value = {
             name: '',
             email: '',
@@ -232,7 +240,8 @@ export default {
       showError,
       errorMessage,
       isSubmitting,
-      handleSubmit
+      handleSubmit,
+      dismissNotification
     };
   }
 };
@@ -259,5 +268,21 @@ export default {
 
 .slide-in {
   animation: slideIn 0.3s ease-out forwards;
+}
+
+.translate-y-0 {
+  transform: translateY(0);
+}
+
+.translate-y-10 {
+  transform: translateY(2.5rem);
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.opacity-100 {
+  opacity: 1;
 }
 </style>
