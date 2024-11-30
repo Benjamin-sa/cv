@@ -95,11 +95,11 @@
           <swiper-slide class="swiper-slide-content">
             <OpleidingIndex />
           </swiper-slide>
-          <swiper-slide class="swiper-slide-content">
-            <VaardighedenIndex />
-          </swiper-slide>
           <swiper-slide class="swiper-slide-content" id="hobbies">
             <HobbiesIndex />
+          </swiper-slide>
+          <swiper-slide class="swiper-slide-content">
+            <VaardighedenIndex />
           </swiper-slide>
           <swiper-slide class="swiper-slide-content">
             <ContactForm />
