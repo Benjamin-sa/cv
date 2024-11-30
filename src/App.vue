@@ -60,7 +60,11 @@
           :threshold="20"
           :resistance="true"
           :resistanceRatio="0.85"
-          :autoHeight="false"
+          :autoHeight="true"
+          :watchSlidesProgress="true"
+          :observer="true"
+          :observeParents="true"
+          :observeSlideChildren="true"
           class="swiper-container"
           @swiper="onSwiper"
           @slideChange="onSlideChange"
@@ -74,7 +78,7 @@
           <swiper-slide class="swiper-slide-content">
             <VaardighedenIndex />
           </swiper-slide>
-          <swiper-slide class="swiper-slide-content">
+          <swiper-slide class="swiper-slide-content" id="hobbies">
             <HobbiesIndex />
           </swiper-slide>
           <swiper-slide class="swiper-slide-content">
@@ -172,7 +176,12 @@ export default {
       easing: 'ease-in-out',
       once: true,
       mirror: false,
-      offset: 50
+      offset: 50,
+      disable: function() {
+        // Disable AOS for Hobbies section
+        const currentSlide = document.querySelector('.swiper-slide-active');
+        return currentSlide && currentSlide.querySelector('#hobbies') !== null;
+      }
     });
   },
 };

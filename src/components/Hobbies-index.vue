@@ -1,7 +1,6 @@
 <template>
   <section 
     id="hobbies"
-    data-aos="fade-up" 
     class="bg-white rounded-lg p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300"
   >
     <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
@@ -13,8 +12,6 @@
         v-for="(hobby, index) in hobbies" 
         :key="index"
         class="hobby-card w-full bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
-        :data-aos="getAosAnimation(index)"
-        :data-aos-delay="index * 10"
       >
         <div class="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
           <img 
@@ -70,8 +67,6 @@
 
 <script>
 import { ref, onMounted } from 'vue';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 
 export default {
@@ -101,7 +96,7 @@ export default {
       {
         naam: 'Boksen',
         icon: 'fas fa-fist-raised',
-        periode: '2020 - heden',
+        periode: '2024 - heden',
         beschrijving: 'Boksen is een manier om fysiek en mentaal sterker te worden. Door regelmatige training ontwikkel ik mijn discipline en doorzettingsvermogen.',
         image: '/images/boksen.webp',
         details: [
@@ -119,35 +114,30 @@ export default {
       }
     ]);
 
-    const getAosAnimation = (index) => {
-      return index % 2 === 0 ? 'fade-right' : 'fade-left';
-    };
-
     onMounted(() => {
-      // Initialize AOS with specific settings
-      AOS.init({
-        duration: 1000,
-        once: false,
-        mirror: true,
-        offset: 50,
-        delay: 100
-      });
-      
-      // Force AOS refresh after a short delay to ensure proper initialization
-      setTimeout(() => {
-        AOS.refresh();
-      }, 100);
+      // Force a reflow to ensure proper rendering
+      const section = document.getElementById('hobbies');
+      if (section) {
+        section.style.display = 'none';
+        section.offsetHeight; // Force a reflow
+        section.style.display = '';
+      }
     });
 
     return {
-      hobbies,
-      getAosAnimation
+      hobbies
     };
   }
 };
 </script>
 
 <style scoped>
+#hobbies {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
 .hobbies {
   position: relative;
   border: 1px solid rgba(255, 255, 255, 0.2);
