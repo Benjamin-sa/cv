@@ -1,37 +1,37 @@
-  <template>
+<template>
   <section 
     id="opleiding"
     data-aos="fade-up" 
-    class="bg-white rounded-lg p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300"
+    class="bg-gray-900/80 backdrop-blur-md rounded-2xl p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300 border border-gray-800 shadow-xl"
   >
-    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 text-transparent bg-clip-text">
       Opleiding
     </h2>
     <ul class="space-y-4 sm:space-y-6 md:space-y-8">
       <li 
         v-for="(opl, index) in opleidingen" 
         :key="index"
-        class="p-6 rounded-lg transition-all duration-300 transform hover:-translate-y-1"
+        class="p-3 sm:p-6 rounded-lg transition-all duration-300 transform"
         :style="{'--animation-order': index}"
-        :data-aos="getAosAnimation(index)"
-        :data-aos-delay="opl.animationDelay"
+        :data-aos="isMobile ? 'fade-up' : getAosAnimation(index)"
+        :data-aos-delay="isMobile ? 0 : opl.animationDelay"
       >
         <div 
-          class="ml-6 md:ml-0 p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
-          :class="{'md:mr-8': index % 2 === 1}"
+          class="ml-3 md:ml-0 p-4 sm:p-6 bg-gray-950/80 backdrop-blur-md rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-800"
+          :class="{'md:mr-8': !isMobile && index % 2 === 1}"
         >
-          <h3 class="text-xl font-semibold text-blue-600 mb-3">{{ opl.titel }}</h3>
-          <div class="flex items-center text-gray-600 mb-3">
+          <h3 class="text-lg sm:text-xl font-semibold bg-gradient-to-r from-teal-400 to-emerald-400 text-transparent bg-clip-text mb-2 sm:mb-3">{{ opl.titel }}</h3>
+          <div class="flex flex-wrap items-center text-gray-300 mb-2 sm:mb-3 gap-2">
             <span class="font-medium company-badge">{{ opl.school }}</span>
-            <span class="mx-3">•</span>
-            <span class="text-gray-500 year-badge">{{ opl.jaar }}</span>
+            <span class="mx-1 sm:mx-3 text-gray-400 hidden sm:inline">•</span>
+            <span class="text-gray-400 year-badge">{{ opl.jaar }}</span>
           </div>
-          <p class="text-gray-700 leading-relaxed description">{{ opl.beschrijving }}</p>
-          <div class="mt-4 flex flex-wrap gap-2">
+          <p class="text-gray-300 leading-relaxed description text-sm sm:text-base">{{ opl.beschrijving }}</p>
+          <div class="mt-3 sm:mt-4 flex flex-wrap gap-1 sm:gap-2">
             <span 
               v-for="(vak, vIndex) in opl.vakken" 
               :key="vIndex"
-              class="px-3 py-1 bg-blue-50 text-blue-600 rounded-full text-sm hover:bg-blue-100 transition-colors duration-300"
+              class="px-2 sm:px-3 py-1 bg-gray-800/80 text-teal-300 rounded-full text-xs sm:text-sm hover:bg-gray-700 transition-colors duration-300 border border-gray-700"
             >
               {{ vak }}
             </span>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -69,16 +69,40 @@ export default {
       }
     ]);
 
+    const isMobile = ref(false);
+
+    const checkMobile = () => {
+      isMobile.value = window.innerWidth < 768 || ('ontouchstart' in window);
+    };
+
     const getAosAnimation = (index) => {
+      // On mobile, use simpler animations
+      if (isMobile.value) {
+        return 'fade-up';
+      }
       return index % 2 === 0 ? 'fade-right' : 'fade-left';
     };
 
     onMounted(() => {
-      AOS.init();
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      
+      // Configure AOS for better mobile performance
+      AOS.init({
+        duration: isMobile.value ? 800 : 1000,
+        once: isMobile.value, // Only animate once on mobile for performance
+        mirror: !isMobile.value,
+        disable: 'phone' // Disable complex animations on phone
+      });
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', checkMobile);
     });
 
     return {
       opleidingen,
+      isMobile,
       getAosAnimation
     };
   }
@@ -105,7 +129,7 @@ h2::after {
   left: 0;
   width: 40%;
   height: 3px;
-  background: linear-gradient(90deg, #3b82f6, transparent);
+  background: linear-gradient(90deg, #10b981, transparent);
   transition: width 0.3s ease;
 }
 
@@ -116,7 +140,7 @@ h2::after {
 li {
   border-left: 3px solid transparent;
   position: relative;
-  background: white;
+  background: transparent;
 }
 
 li::before {
@@ -126,7 +150,7 @@ li::before {
   top: 0;
   height: 0;
   width: 3px;
-  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  background: linear-gradient(to bottom, #10b981, #059669);
   transition: height 0.3s ease;
 }
 
@@ -134,42 +158,31 @@ li:hover::before {
   height: 100%;
 }
 
-.text-blue-600 {
-  background: linear-gradient(90deg, #3b82f6, #2563eb);
-  -webkit-background-clip: text;
-  color: transparent;
-  transition: all 0.3s ease;
-}
-
-li:hover .text-blue-600 {
-  letter-spacing: 0.5px;
-}
-
 /* Company badge */
 .company-badge {
   display: inline-flex;
   align-items: center;
   padding: 0.25rem 0.75rem;
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(16, 185, 129, 0.1);
   border-radius: 9999px;
   transition: all 0.3s ease;
 }
 
 li:hover .company-badge {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(16, 185, 129, 0.2);
   transform: translateX(5px);
 }
 
 /* Year badge */
 .year-badge {
-  background: rgba(139, 92, 246, 0.1);
+  background: rgba(5, 150, 105, 0.1);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   transition: all 0.3s ease;
 }
 
 li:hover .year-badge {
-  background: rgba(139, 92, 246, 0.2);
+  background: rgba(5, 150, 105, 0.2);
 }
 
 /* Description animation */
@@ -181,7 +194,7 @@ li:hover .year-badge {
 }
 
 li:hover .description {
-  border-left-color: #3b82f6;
+  border-left-color: #10b981;
   padding-left: 1.5rem;
 }
 
@@ -219,6 +232,56 @@ li {
   .company-badge,
   .year-badge {
     font-size: 0.875rem;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) or (prefers-reduced-motion: reduce) {
+  li::before {
+    display: none; /* Remove complex animations on mobile */
+  }
+  
+  li:hover::before {
+    height: 0;
+  }
+  
+  li:hover .company-badge,
+  li:hover .year-badge,
+  li:hover .description {
+    transform: none; /* Disable hover animations on mobile */
+  }
+  
+  .company-badge, .year-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+  }
+}
+
+/* Touch-friendly adjustments */
+@media (max-width: 640px) {
+  .description {
+    padding-left: 0.5rem;
+    border-left-width: 1px;
+  }
+  
+  li {
+    animation-delay: 0ms !important; /* No sequential animations on small mobile */
+  }
+  
+  /* Simpler animations for mobile */
+  @keyframes simpleFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  li {
+    animation: simpleFadeIn 0.5s ease forwards;
   }
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <section 
     id="hobbies"
-    class="bg-white rounded-lg p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300"
+    class="bg-gray-900/80 backdrop-blur-md shadow-xl rounded-2xl p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300 border border-gray-800"
   >
-    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 text-transparent bg-clip-text">
       Hobbies
     </h2>
     
@@ -11,7 +11,7 @@
       <div 
         v-for="(hobby, index) in hobbies" 
         :key="index"
-        class="hobby-card w-full bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300"
+        class="hobby-card w-full bg-gray-950/80 backdrop-blur-md rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-800"
       >
         <div class="relative h-48 sm:h-64 overflow-hidden rounded-t-lg">
           <img 
@@ -31,21 +31,21 @@
         </div>
         
         <div 
-          class="ml-6 md:ml-0 p-6 bg-white/80 rounded-lg"
+          class="ml-6 md:ml-0 p-6 bg-gray-950/80 backdrop-blur-md rounded-lg"
           :class="{'md:mr-8': index % 2 === 1}"
         >
-          <p class="text-gray-700 mb-6 leading-relaxed">{{ hobby.beschrijving }}</p>
+          <p class="text-gray-300 mb-6 leading-relaxed">{{ hobby.beschrijving }}</p>
           
           <div class="space-y-4">
-            <h4 class="font-semibold text-gray-800 mb-3">Belangrijkste aspecten:</h4>
+            <h4 class="font-semibold text-gray-200 mb-3">Belangrijkste aspecten:</h4>
             <ul class="space-y-3">
               <li 
                 v-for="(detail, idx) in hobby.details" 
                 :key="idx" 
                 class="flex items-start"
               >
-                <span class="w-2 h-2 mt-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-3"></span>
-                <span class="text-gray-600 flex-1">{{ detail }}</span>
+                <span class="w-2 h-2 mt-2 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full mr-3"></span>
+                <span class="text-gray-300 flex-1">{{ detail }}</span>
               </li>
             </ul>
           </div>
@@ -54,7 +54,7 @@
             <span 
               v-for="(skill, sIdx) in hobby.vaardigheden" 
               :key="sIdx"
-              class="px-3 py-1 text-sm bg-gradient-to-r from-blue-50 to-purple-50 text-gray-700 rounded-full border border-gray-200 hover:border-blue-300 transition-all duration-300"
+              class="px-3 py-1 text-sm bg-gray-800/60 text-emerald-300 rounded-full border border-gray-700 hover:border-emerald-500 transition-all duration-300"
             >
               {{ skill }}
             </span>
@@ -144,14 +144,14 @@ export default {
 }
 
 .hobby-card {
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
 }
 
 .hobby-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {

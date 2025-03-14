@@ -1,128 +1,111 @@
 <template>
-  <div class="app-wrapper">
-    <!-- Menu Toggle Button -->
+  <div class="app-wrapper bg-gradient-to-br from-gray-950 via-gray-900 to-slate-950 min-h-screen">
+    <!-- Colorful Menu Toggle Button -->
     <button 
       @click="toggleMenu" 
-      class="menu-toggle fixed top-4 right-4 z-50 w-10 h-10 rounded-full bg-white/90 shadow-lg flex items-center justify-center"
+      class="menu-toggle fixed top-4 right-4 z-50 w-12 h-12 rounded-full bg-gray-800 shadow-lg flex items-center justify-center overflow-hidden group"
     >
-      <i :class="isMenuOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-gray-800 text-lg"></i>
+      <div class="absolute inset-0 bg-gradient-to-r from-teal-700 via-emerald-700 to-green-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <i :class="isMenuOpen ? 'fas fa-times' : 'fas fa-bars'" class="text-gray-200 group-hover:text-white text-lg relative z-10 transition-transform duration-300"></i>
     </button>
 
-    <!-- Fullscreen Menu -->
+    <!-- Colorful Fullscreen Menu -->
     <div 
       v-show="isMenuOpen"
-      class="menu-overlay fixed inset-0 z-40 bg-white/80 backdrop-blur-lg"
+      class="menu-overlay fixed inset-0 z-40 bg-gray-950/95 backdrop-blur-lg"
     >
+      <!-- Colorful accent shapes for menu background -->
+      <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-bl from-teal-800/20 to-transparent rounded-bl-full opacity-60"></div>
+      <div class="absolute bottom-0 left-0 w-1/2 h-1/2 bg-gradient-to-tr from-emerald-800/20 to-transparent rounded-tr-full opacity-50"></div>
+      <div class="absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-green-800/20 blur-xl opacity-40"></div>
+      <div class="absolute bottom-1/3 right-1/4 w-24 h-24 rounded-full bg-teal-800/20 blur-xl opacity-40"></div>
+      
       <nav class="relative z-10 h-full flex items-center justify-center">
-        <ul class="space-y-4 text-center">
-          <li v-for="(item, index) in menuItems" :key="index">
-            <button
-              @click="navigateToSlide(index)"
-              class="text-xl font-semibold text-gray-800 hover:text-blue-600"
-              :class="{ 'text-blue-600': currentSlide === index }"
+        <ul class="space-y-6 text-center">
+          <li v-for="(item, index) in menuItems" :key="index" class="menu-item-wrapper" :style="`--delay: ${index * 0.1}s`">
+            <a
+              :href="`#${item.toLowerCase()}`"
+              @click="scrollToSection(item.toLowerCase())"
+              class="menu-item text-2xl font-bold transition-all duration-300 relative inline-block px-6 py-2"
+              :class="{ 'active': activeSection === item.toLowerCase() }"
             >
-              {{ item }}
-            </button>
+              <span class="relative z-10 text-gray-200">{{ item }}</span>
+              <span class="absolute inset-0 scale-x-0 scale-y-100 origin-left bg-gradient-to-r rounded-lg transition-transform duration-300 -z-10 group-hover:scale-x-100" :class="getMenuItemGradient(index)"></span>
+            </a>
           </li>
         </ul>
       </nav>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main Content with Professional Dark Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <!-- Background Accent Elements -->
+      <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-teal-800/8 blur-3xl"></div>
+      <div class="absolute -bottom-32 -left-16 w-80 h-80 rounded-full bg-emerald-800/8 blur-3xl"></div>
+      <div class="absolute top-1/4 -left-24 w-48 h-48 rounded-full bg-green-800/8 blur-2xl"></div>
+      <div class="absolute bottom-1/3 -right-16 w-48 h-48 rounded-full bg-teal-800/8 blur-3xl"></div>
+      
+      <!-- Additional subtle background elements for professional look -->
+      <div class="absolute top-1/2 left-1/2 w-96 h-96 rounded-full bg-emerald-900/5 blur-3xl"></div>
+      <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/40 to-transparent opacity-40"></div>
+      <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/50 to-transparent opacity-40"></div>
+      
+      <!-- Deep background vignette effect -->
+      <div class="absolute inset-0 bg-radial-vignette opacity-70"></div>
+      
+      <!-- Subtle grid pattern overlay with reduced opacity -->
+      <div class="absolute inset-0 opacity-4 pattern-grid"></div>
+      
+      <!-- Subtle noise texture for added depth -->
+      <div class="absolute inset-0 noise-bg opacity-[0.03]"></div>
+    </div>
+
     <Layout>
-      <div class="app-container">
-        <swiper
-          :modules="modules"
-          :slides-per-view="1"
-          :space-between="0"
-          :navigation="{ 
-            enabled: true,
-            hideOnClick: true
-          }"
-          :pagination="{ 
-            enabled: true,
-            clickable: true,
-            dynamicBullets: true,
-            dynamicMainBullets: 3
-          }"
-          :direction="'horizontal'"
-          :effect="'creative'"
-          :creativeEffect="{
-            prev: {
-              translate: ['-100%', 0, -400],
-              opacity: 0
-            },
-            next: {
-              translate: ['100%', 0, 0],
-              opacity: 0
-            },
-          }"
-          :speed="600"
-          :allowTouchMove="true"
-          :touchRatio="2"
-          :threshold="10"
-          :resistance="true"
-          :resistanceRatio="0.65"
-          :autoHeight="true"
-          :watchSlidesProgress="true"
-          :touchStartPreventDefault="false"
-          :touchMoveStopPropagation="true"
-          :breakpoints="{
-            320: {
-              touchRatio: 1.5,
-              resistanceRatio: 0.85,
-              speed: 400,
-              navigation: {
-                enabled: false
-              }
-            },
-            768: {
-              touchRatio: 1,
-              resistanceRatio: 0.65,
-              speed: 600,
-              navigation: {
-                enabled: true
-              }
-            }
-          }"
-          class="swiper-container"
-          @swiper="onSwiper"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide class="swiper-slide-content">
-            <IntroductieIndex />
-          </swiper-slide>
-          <swiper-slide class="swiper-slide-content">
-            <OpleidingIndex />
-          </swiper-slide>
-          <swiper-slide class="swiper-slide-content" id="hobbies">
-            <HobbiesIndex />
-          </swiper-slide>
-          <swiper-slide class="swiper-slide-content">
-            <VaardighedenIndex />
-          </swiper-slide>
-          <swiper-slide class="swiper-slide-content">
-            <ContactForm />
-          </swiper-slide>
-        </swiper>
+      <div class="app-container max-w-5xl mx-auto px-4 relative z-10">
+        <section id="introductie" class="py-10 mb-20 min-h-screen flex flex-col justify-center">
+          <IntroductieIndex />
+        </section>
+        
+        <section id="opleiding" class="py-10 mb-20">
+          <OpleidingIndex />
+        </section>
+        
+        <section id="vaardigheden" class="py-10 mb-20">
+          <VaardighedenIndex />
+        </section>
+        
+        <section id="projecten" class="py-10 mb-20">
+          <ProjectenIndex />
+        </section>
+        
+        <section id="hobbies" class="py-10 mb-20">
+          <HobbiesIndex />
+        </section>
+        
+        <section id="contact" class="py-10">
+          <ContactForm />
+        </section>
       </div>
     </Layout>
+    
+    <!-- Colorful Scroll Progress Indicator -->
+    <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-48 h-2 bg-gray-800/70 rounded-full overflow-hidden z-30 backdrop-blur-sm shadow-sm">
+      <div 
+        class="h-full bg-gradient-to-r from-teal-700 via-emerald-700 to-green-700" 
+        :style="`width: ${scrollProgress}%`"></div>
+    </div>
+        
   </div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Pagination, EffectCreative } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/effect-creative';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 import Layout from './components/layout-index-snapniks.vue';
 import IntroductieIndex from './components/Introductie-index.vue';
 import OpleidingIndex from './components/Opleiding-index.vue';
 import VaardighedenIndex from './components/Vaardigheden-index.vue';
+import ProjectenIndex from './components/Projecten-index.vue';
 import HobbiesIndex from './components/Hobbies-index.vue';
 import ContactForm from './components/Contact-form.vue';
 
@@ -136,19 +119,19 @@ export default {
     IntroductieIndex,
     OpleidingIndex,
     VaardighedenIndex,
+    ProjectenIndex,
     HobbiesIndex,
     ContactForm,
-    Swiper,
-    SwiperSlide,
   },
   setup() {
     const isMenuOpen = ref(false);
-    const currentSlide = ref(0);
-    const swiperInstance = ref(null);
+    const activeSection = ref('introductie');
+    const scrollProgress = ref(0);
     const menuItems = [
       'Introductie',
       'Opleiding',
       'Vaardigheden',
+      'Projecten',
       'Hobbies',
       'Contact'
     ];
@@ -158,150 +141,284 @@ export default {
       document.body.style.overflow = isMenuOpen.value ? 'hidden' : '';
     };
 
-    const navigateToSlide = (index) => {
-      if (swiperInstance.value) {
-        swiperInstance.value.slideTo(index);
+    const getMenuItemGradient = (index) => {
+      const gradients = [
+        'from-teal-500 to-emerald-500',
+        'from-emerald-500 to-green-500',
+        'from-green-500 to-teal-500',
+        'from-teal-500 to-emerald-500',
+        'from-emerald-500 to-green-500'
+      ];
+      return gradients[index % gradients.length];
+    };
+
+    const scrollToSection = (sectionId) => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
         isMenuOpen.value = false;
         document.body.style.overflow = '';
+        activeSection.value = sectionId;
       }
     };
 
-    const onSwiper = (swiper) => {
-      swiperInstance.value = swiper;
-    };
-    
-    const onSlideChange = () => {
-      if (swiperInstance.value) {
-        currentSlide.value = swiperInstance.value.activeIndex;
+    const handleScroll = () => {
+      // Calculate scroll progress
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      scrollProgress.value = (window.scrollY / totalHeight) * 100;
+      
+      // Determine active section
+      const sections = document.querySelectorAll('section[id]');
+      let current = '';
+      
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.scrollY >= sectionTop - 300) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      if (current !== activeSection.value) {
+        activeSection.value = current;
+        
+        // If GSAP is available, animate section entrance
+        if (window.gsap && window.ScrollTrigger) {
+          gsap.to(`#${current}`, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out"
+          });
+        }
       }
+    };
+
+    onMounted(() => {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: false,
+        mirror: true,
+        offset: 150,
+        delay: 100,
+      });
+      
+      window.addEventListener('scroll', handleScroll);
+      
+      // Initialize the active section on load
       setTimeout(() => {
-        AOS.refresh();
-      }, 500);
-    };
-    
-    return {
-      modules: [Navigation, Pagination, EffectCreative],
-      isMenuOpen,
-      currentSlide,
-      menuItems,
-      toggleMenu,
-      navigateToSlide,
-      onSwiper,
-      onSlideChange,
-    };
-  },
-  mounted() {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: true,
-      mirror: false,
-      offset: 50,
-      disable: function() {
-        // Disable AOS for Hobbies section
-        const currentSlide = document.querySelector('.swiper-slide-active');
-        return currentSlide && currentSlide.querySelector('#hobbies') !== null;
+        handleScroll();
+      }, 100);
+      
+      // Initialize GSAP ScrollTrigger if available
+      if (window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Create scroll animations for each section
+        document.querySelectorAll('section[id]').forEach(section => {
+          gsap.fromTo(section, 
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.8,
+              scrollTrigger: {
+                trigger: section,
+                start: "top 70%",
+                toggleActions: "play none none reverse"
+              }
+            }
+          );
+        });
       }
     });
-  },
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('scroll', handleScroll);
+      
+      // Clean up ScrollTriggers if they exist
+      if (window.ScrollTrigger) {
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      }
+    });
+
+    return {
+      isMenuOpen,
+      activeSection,
+      menuItems,
+      scrollProgress,
+      toggleMenu,
+      scrollToSection,
+      getMenuItemGradient
+    };
+  }
 };
 </script>
 
 <style>
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 2rem;
+}
+
+body {
+  overflow-x: hidden;
+  color: #e2e8f0; /* Default text color for dark theme */
+  background-color: #030712; /* Very dark background for body */
+}
+
 #app {
   min-height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 
-.app-container {
-  flex: 1;
-  height: 100%;
+/* Pattern grid background */
+.pattern-grid {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
-.swiper {
-  position: absolute !important;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+/* Radial vignette effect */
+.bg-radial-vignette {
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
 }
 
-.swiper-wrapper {
-  height: 100% !important;
+/* Noise texture */
+.noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  pointer-events: none;
 }
 
-.swiper-slide {
-  height: 100% !important;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
+/* Animations and transitions for page sections */
+section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.swiper-slide > * {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
-  overflow-y: auto;
-  padding: 1rem;
-}
-
-@media (max-width: 640px) {
-  .swiper-slide > * {
-    padding: 0.5rem;
-  }
-}
-
-/* Navigation styles */
-.swiper-button-next,
-.swiper-button-prev {
-  color: #3b82f6;
-  background: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 20;
-}
-
-.swiper-button-next:after,
-.swiper-button-prev:after {
-  font-size: 1.2rem;
-}
-
-@media (max-width: 640px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-    display: none;
-  }
-}
-
-/* Pagination styles */
-.swiper-pagination {
-  position: fixed !important;
-  bottom: 10px !important;
-  z-index: 20;
-}
-
-@media (max-width: 640px) {
-  .swiper-pagination {
-    bottom: 5px !important;
-  }
-  
-  .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    margin: 0 4px !important;
-  }
-}
-
-.swiper-pagination-bullet {
-  background: #3b82f6;
-  opacity: 0.5;
-}
-
-.swiper-pagination-bullet-active {
+section.aos-animate {
   opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced Navigation styles */
+.menu-toggle {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu-toggle:hover {
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Menu item animations */
+.menu-item-wrapper {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: menuItemFadeIn 0.5s forwards;
+}
+
+@keyframes menuItemFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-item-wrapper {
+  animation-delay: calc(var(--delay) + 0.1s);
+}
+
+.menu-item {
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item.active {
+  color: white;
+}
+
+.menu-item.active span:last-child {
+  transform: scaleX(1);
+}
+
+/* Section transitions with colorful dividers */
+section {
+  position: relative;
+}
+
+section::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 2px;
+  background: linear-gradient(to right, 
+    transparent, 
+    rgba(16, 185, 129, 0.4), 
+    rgba(5, 150, 105, 0.4), 
+    rgba(4, 120, 87, 0.4),
+    rgba(16, 185, 129, 0.4),
+    transparent
+  );
+}
+
+section:last-child::after {
+  display: none;
+}
+
+/* Custom scrollbar for dark theme - making it more subtle */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #10b981, #059669, #047857);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #059669, #047857, #065f46);
+}
+
+/* Navigation dots styling - making them more subtle and elegant */
+.nav-dots {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.nav-dots:hover {
+  opacity: 0.9;
+}
+
+.nav-dot {
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-dot.active {
+  transform: scale(1.5);
+  background: linear-gradient(to right, #10b981, #059669);
+  border: none;
+}
+
+/* Page transition effects */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.app-wrapper {
+  animation: fadeIn 1s ease forwards;
 }
 </style>

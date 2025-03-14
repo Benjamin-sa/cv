@@ -3,6 +3,8 @@ node_modules
 /dist
 
 
+main.tex
+
 # local env files
 .env.example
 .env.*.local

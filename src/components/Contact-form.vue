@@ -2,63 +2,63 @@
   <section 
     id="contact"
     data-aos="fade-up" 
-    class="bg-white rounded-lg p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300"
+    class="bg-gray-900/80 backdrop-blur-md shadow-xl rounded-2xl p-4 sm:p-6 md:p-8 transform hover:scale-105 transition-transform duration-300 border border-gray-800"
   >
-    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 text-transparent bg-clip-text">
       Contact & Netwerken
     </h2>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
       <!-- Contact Form -->
-      <div class="bg-white rounded-lg shadow-lg p-4 sm:p-6">
-        <h3 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-gray-800">Neem Contact Op</h3>
+      <div class="bg-gray-950/80 backdrop-blur-md rounded-lg shadow-lg p-4 sm:p-6 border border-gray-800">
+        <h3 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 text-gray-200">Neem Contact Op</h3>
         <form @submit.prevent="handleSubmit" class="space-y-4 sm:space-y-6">
           <!-- Name field with icon -->
           <div class="relative">
-            <label class="block text-gray-700 text-sm sm:text-base mb-2">Naam</label>
+            <label class="block text-gray-300 text-sm sm:text-base mb-2">Naam</label>
             <div class="relative">
               <input 
                 v-model="formData.name"
                 type="text"
                 inputmode="text"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-base sm:text-lg"
+                class="w-full px-4 py-2 pl-10 bg-gray-800/60 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-base sm:text-lg text-gray-200"
                 required
               >
-              <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <i class="fas fa-user absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400"></i>
             </div>
           </div>
 
           <!-- Email field with icon -->
           <div class="relative">
-            <label class="block text-gray-700 text-sm sm:text-base mb-2">Email</label>
+            <label class="block text-gray-300 text-sm sm:text-base mb-2">Email</label>
             <div class="relative">
               <input 
                 v-model="formData.email"
                 type="email"
                 inputmode="email"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 text-base sm:text-lg"
+                class="w-full px-4 py-2 pl-10 bg-gray-800/60 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 text-base sm:text-lg text-gray-200"
                 required
               >
-              <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+              <i class="fas fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-emerald-400"></i>
             </div>
           </div>
 
           <!-- Message field with icon -->
           <div class="relative">
-            <label class="block text-gray-700 text-sm sm:text-base mb-2">Bericht</label>
+            <label class="block text-gray-300 text-sm sm:text-base mb-2">Bericht</label>
             <div class="relative">
               <textarea 
                 v-model="formData.message"
-                class="w-full px-4 py-2 pl-10 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 min-h-[120px] text-base sm:text-lg"
+                class="w-full px-4 py-2 pl-10 bg-gray-800/60 border border-gray-700 rounded-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 min-h-[120px] text-base sm:text-lg text-gray-200"
                 required
               ></textarea>
-              <i class="fas fa-comment absolute left-3 top-4 text-gray-400"></i>
+              <i class="fas fa-comment absolute left-3 top-4 text-emerald-400"></i>
             </div>
           </div>
 
           <button 
             type="submit"
-            class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 px-6 rounded-lg hover:from-blue-600 hover:to-purple-600 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
+            class="w-full bg-gradient-to-r from-teal-600 to-emerald-600 text-white py-2 px-6 rounded-lg hover:from-teal-500 hover:to-emerald-500 transform hover:scale-105 transition-all duration-300 flex items-center justify-center"
             :disabled="isSubmitting"
           >
             <i class="fas fa-paper-plane mr-2"></i>
@@ -70,25 +70,25 @@
       <!-- Contact Info & Social Links -->
       <div class="space-y-6">
         <!-- Quick Contact -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-          <h3 class="text-xl font-semibold mb-4 text-gray-800">Direct Contact</h3>
+        <div class="bg-gray-950/80 backdrop-blur-md rounded-lg shadow-lg p-6 border border-gray-800">
+          <h3 class="text-xl font-semibold mb-4 text-gray-200">Direct Contact</h3>
           <div class="space-y-4">
-            <a href="mailto:benjamin.sautersb@gmail.com" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+            <a href="mailto:benjamin.sautersb@gmail.com" class="flex items-center p-3 rounded-lg hover:bg-gray-800/60 transition-all duration-300">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-teal-600 to-emerald-600 flex items-center justify-center">
                 <i class="fas fa-envelope text-white"></i>
               </div>
               <div class="ml-4">
-                <p class="text-gray-800 font-medium">Email</p>
-                <p class="text-gray-600 text-sm">benjamin.sautersb@gmail.com</p>
+                <p class="text-gray-200 font-medium">Email</p>
+                <p class="text-gray-400 text-sm">benjamin.sautersb@gmail.com</p>
               </div>
             </a>
-            <a href="tel:+32493789131" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+            <a href="tel:+32493789131" class="flex items-center p-3 rounded-lg hover:bg-gray-800/60 transition-all duration-300">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-r from-teal-600 to-emerald-600 flex items-center justify-center">
                 <i class="fas fa-phone text-white"></i>
               </div>
               <div class="ml-4">
-                <p class="text-gray-800 font-medium">Telefoon</p>
-                <p class="text-gray-600 text-sm">+32 493 78 91 31</p>
+                <p class="text-gray-200 font-medium">Telefoon</p>
+                <p class="text-gray-400 text-sm">+32 493 78 91 31</p>
               </div>
             </a>
           </div>
@@ -96,25 +96,25 @@
         
 
         <!-- Social Links -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-          <h3 class="text-xl font-semibold mb-4 text-gray-800">Sociale Media</h3>
+        <div class="bg-gray-950/80 backdrop-blur-md rounded-lg shadow-lg p-6 border border-gray-800">
+          <h3 class="text-xl font-semibold mb-4 text-gray-200">Sociale Media</h3>
           <div class="space-y-4">
-            <a href="https://www.linkedin.com/in/benjamin-sauter-14222b2b0" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="https://www.linkedin.com/in/benjamin-sauter-14222b2b0" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-gray-800/60 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-[#0077b5] flex items-center justify-center">
                 <i class="fab fa-linkedin-in text-white"></i>
               </div>
               <div class="ml-4">
-                <p class="text-gray-800 font-medium">LinkedIn</p>
-                <p class="text-gray-600 text-sm">Bekijk mijn professionele profiel</p>
+                <p class="text-gray-200 font-medium">LinkedIn</p>
+                <p class="text-gray-400 text-sm">Bekijk mijn professionele profiel</p>
               </div>
             </a>
-            <a href="https://github.com/Benjamin-sa" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-blue-50 transition-all duration-300">
+            <a href="https://github.com/Benjamin-sa" target="_blank" class="flex items-center p-3 rounded-lg hover:bg-gray-800/60 transition-all duration-300">
               <div class="w-10 h-10 rounded-full bg-[#333] flex items-center justify-center">
                 <i class="fab fa-github text-white"></i>
               </div>
               <div class="ml-4">
-                <p class="text-gray-800 font-medium">GitHub</p>
-                <p class="text-gray-600 text-sm">Bekijk mijn projecten</p>
+                <p class="text-gray-200 font-medium">GitHub</p>
+                <p class="text-gray-400 text-sm">Bekijk mijn projecten</p>
               </div>
             </a>
           </div>
@@ -122,12 +122,10 @@
       </div>
     </div>
 
-        
-
     <!-- Success Message -->
     <div 
       v-if="showSuccess" 
-      class="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-4"
+      class="fixed bottom-4 right-4 bg-emerald-600 text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-4"
       :class="{'translate-y-0 opacity-100': showSuccess, 'translate-y-10 opacity-0': !showSuccess}"
     >
       <div class="flex items-center">
@@ -136,7 +134,7 @@
       </div>
       <button 
         @click="dismissNotification" 
-        class="text-white hover:text-green-200 transition-colors"
+        class="text-white hover:text-emerald-200 transition-colors"
       >
         <i class="fas fa-times"></i>
       </button>
