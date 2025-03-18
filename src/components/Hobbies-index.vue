@@ -75,13 +75,13 @@ export default {
   setup() {
     const hobbies = ref([
       {
-        naam: 'Scouts Hoofdleider',
+        naam: 'Groepsleider Scouts',
         icon: 'fas fa-campground',
         periode: '2024 - heden',
         beschrijving: 'Als hoofdleider van de scoutsgroep ben ik verantwoordelijk voor de coördinatie van activiteiten, het begeleiden van het leidingsteam en het waarborgen van een veilige en leerzame omgeving voor alle leden.',
         image: '/images/scouts.jpg',
         details: [
-          'Leiding geven aan een team van 20+ begeleiders',
+          'Leiding geven aan een team van 20+ Leidinggevenden',
           'Organisatie van evenementen en jaarlijkse kampen',
             'Verantwoordelijk voor veiligheid en welzijn van 100+ leden',
             'Communicatie met ouders en externe partners'
@@ -146,7 +146,7 @@ export default {
 .hobby-card {
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .hobby-card:hover {

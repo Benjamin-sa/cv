@@ -29,11 +29,7 @@
             <!-- Name and Title with Simplified Text Animation -->
             <div class="text-center md:text-left space-y-3" data-aos="fade-up" data-aos-delay="400">
               <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 text-transparent bg-clip-text animate-gradient">
-                <span v-for="(char, index) in naam" :key="index" 
-                      class="animated-char inline-block transition-all duration-300 text-teal-400 hover:text-emerald-400 hover:-translate-y-1 touch-animation"
-                      :style="`animation-delay: ${index * 0.05}s`">
-                  {{ char }}
-                </span>
+                {{ naam }}
               </h1>
               <h2 class="text-lg sm:text-xl md:text-2xl bg-gradient-to-r from-teal-400 via-emerald-400 to-green-400 text-transparent bg-clip-text animated-text">{{ titel }}</h2>
               
@@ -198,7 +194,7 @@ export default {
         let i = 0;
         
         // Faster typing for mobile
-        const typeSpeed = isMobile.value ? 10 : 20  ;
+        const typeSpeed = isMobile.value ? 15 : 20  ;
         
         const typeChar = () => {
           if (i < content.length) {
@@ -242,7 +238,11 @@ export default {
     });
 
     return {
-      ...introductie.value,
+      naam: introductie.value.naam,
+      titel: introductie.value.titel,
+      beschrijving: introductie.value.beschrijving, 
+      foto: introductie.value.foto,
+      contactInfo: introductie.value.contactInfo,
       typingText,
       isMobile,
       calculateTextHeight,

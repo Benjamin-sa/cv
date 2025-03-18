@@ -127,6 +127,7 @@ export default {
     const isMenuOpen = ref(false);
     const activeSection = ref('introductie');
     const scrollProgress = ref(0);
+    const isMobile = ref(false);
     const menuItems = [
       'Introductie',
       'Opleiding',
@@ -135,6 +136,11 @@ export default {
       'Hobbies',
       'Contact'
     ];
+
+    // Check if device is mobile
+    const checkMobile = () => {
+      isMobile.value = window.innerWidth < 768;
+    };
 
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
@@ -182,26 +188,42 @@ export default {
       if (current !== activeSection.value) {
         activeSection.value = current;
         
-        // If GSAP is available, animate section entrance
+        // If GSAP is available, animate section entrance with mobile optimization
         if (window.gsap && window.ScrollTrigger) {
-          gsap.to(`#${current}`, {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: "power2.out"
-          });
+          // Use simpler animations for mobile
+          if (isMobile.value) {
+            gsap.to(`#${current}`, {
+              opacity: 1,
+              // Remove y transform for mobile to improve performance
+              duration: 0.3, // Shorter duration for mobile
+              ease: "power1.out" // Simpler easing function
+            });
+          } else {
+            gsap.to(`#${current}`, {
+              opacity: 1,
+              y: 0,
+              duration: 0.3,
+              ease: "power2.out"
+            });
+          }
         }
       }
     };
 
     onMounted(() => {
+      // Check mobile on mount
+      checkMobile();
+      
+      // Add resize listener to update mobile status
+      window.addEventListener('resize', checkMobile);
+      
       AOS.init({
-        duration: 1000,
-        easing: 'ease-in-out',
-        once: false,
-        mirror: true,
-        offset: 150,
-        delay: 100,
+        duration: isMobile.value ? 600 : 1000, // Shorter duration on mobile
+        easing: isMobile.value ? 'ease' : 'ease-in-out', // Simpler easing on mobile
+        once: isMobile.value, // Set to true on mobile to prevent re-animation
+        mirror: !isMobile.value, // Disable mirror on mobile
+        offset: isMobile.value ? 100 : 150, // Less offset on mobile
+        delay: isMobile.value ? 50 : 100, // Less delay on mobile
       });
       
       window.addEventListener('scroll', handleScroll);
@@ -211,31 +233,49 @@ export default {
         handleScroll();
       }, 100);
       
-      // Initialize GSAP ScrollTrigger if available
+      // Initialize GSAP ScrollTrigger if available with mobile optimizations
       if (window.gsap && window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
         
         // Create scroll animations for each section
         document.querySelectorAll('section[id]').forEach(section => {
-          gsap.fromTo(section, 
-            { opacity: 0, y: 30 },
-            { 
-              opacity: 1, 
-              y: 0, 
-              duration: 0.8,
-              scrollTrigger: {
-                trigger: section,
-                start: "top 70%",
-                toggleActions: "play none none reverse"
+          // Different animations based on device
+          if (isMobile.value) {
+            gsap.fromTo(section, 
+              { opacity: 0 }, // No y transform on mobile
+              { 
+                opacity: 1,
+                duration: 0.1, // Shorter duration on mobile
+                ease: "power1.out", // Simpler easing
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 80%", // Trigger earlier
+                  toggleActions: "play none none none" // Simpler toggle actions
+                }
               }
-            }
-          );
+            );
+          } else {
+            gsap.fromTo(section, 
+              { opacity: 0, y: 30 },
+              { 
+                opacity: 1, 
+                y: 0, 
+                duration: 0.1,
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 80%",
+                  toggleActions: "play none none reverse"
+                }
+              }
+            );
+          }
         });
       }
     });
 
     onBeforeUnmount(() => {
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkMobile);
       
       // Clean up ScrollTriggers if they exist
       if (window.ScrollTrigger) {
@@ -248,6 +288,7 @@ export default {
       activeSection,
       menuItems,
       scrollProgress,
+      isMobile,
       toggleMenu,
       scrollToSection,
       getMenuItemGradient
@@ -420,5 +461,19 @@ section:last-child::after {
 
 .app-wrapper {
   animation: fadeIn 1s ease forwards;
+}
+
+/* Add optimized animations for mobile */
+@media (max-width: 767px) {
+  section {
+    transform: translateY(10px); /* Smaller transform distance on mobile */
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Faster transitions */
+  }
+  
+  /* Simpler section transitions with lighter dividers */
+  section::after {
+    width: 120px;
+    height: 1px;
+  }
 }
 </style>
